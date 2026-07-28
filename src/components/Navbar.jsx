@@ -1,11 +1,10 @@
-{
-  /* // 1. Component Setup ---- */
-}
 import "../index.css";
+{/* // 1. Navigation Menu Comopnent ---- */}
 export default function Navbar() {
   return (
     <div className="navbar bg-pink-200 shadow-sm">
       <div className="navbar-start">
+        {/* // 1.1 Dropdown Bar Navigation Menu ---- */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle text-black hover:bg-gray-200 border-transparent">
             <svg
@@ -24,18 +23,25 @@ export default function Navbar() {
               />{" "}
             </svg>
           </div>
+          {/* //// 1.2 Navigation Menu List ---- */}
           <ul
             tabIndex="-1"
             className="menu menu-md dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Homepage</a>
+              <a href="dashboard">Dashboard</a>
             </li>
             <li>
-              <a>Portfolio</a>
+              <a href="transactions">Transactions</a>
             </li>
             <li>
-              <a>About</a>
+              <a href="budgets">Budgets</a>
+            </li>
+            <li>
+              <a href="profile">Profile</a>
+            </li>
+            <li>
+              <a href="reports">Reports</a>
             </li>
           </ul>
         </div>
