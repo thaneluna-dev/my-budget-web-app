@@ -1,97 +1,58 @@
+import {
+  CircleUserRound,
+  DollarSign,
+  DollarSignIcon,
+  House,
+  LayoutDashboard,
+  Settings,
+  Wallet,
+} from "lucide-react";
 import "../index.css";
-{/* // 1. Navigation Menu Comopnent ---- */}
-export default function Navbar() {
-    // Items here is for the notification bar to show any updates
-    // Most likely will be a fetch to the table that has all acitivties that have happened since last refresh
-    const items = []
+import { Navigate, useNavigate } from "react-router-dom";
+
+{
+  /* // 1. Navigation Menu Comopnent ---- */
+}
+export default function Navbar({isMobile}) {
+  // Items here is for the notification bar to show any updates
+  // Most likely will be a fetch to the table that has all acitivties that have happened since last refresh
+  const navigate = useNavigate();
+  const navItems = [
+    { label: "Settings", icon: <Settings color="pink" />, key: "/settings" },
+  ];
+
+  const navItems2 = [
+    {
+      label: "Home",
+      icon: <House size={24} color="pink" />,
+      key: "/dashboard",
+    },
+    {
+      label: "Budget",
+      icon: <Wallet size={24} color="pink" />,
+      key: "/budget",
+    },
+    {
+      label: "Transactions",
+      icon: <DollarSign color="pink" />,
+      key: "/transactions",
+    },
+  ];
   return (
-    <div className="navbar bg-pink-200 shadow-sm">
-      <div className="navbar-start">
-        {/* // 1.1 Dropdown Bar Navigation Menu ---- */}
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle text-black hover:bg-gray-200 border-transparent">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h7"
-              />{" "}
-            </svg>
-          </div>
-          {/* //// 1.2 Navigation Menu List ---- */}
-          <ul
-            tabIndex="-1"
-            className="menu menu-md dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a href="dashboard">Dashboard</a>
-            </li>
-            <li>
-              <a href="transactions">Transactions</a>
-            </li>
-            <li>
-              <a href="budgets">Budgets</a>
-            </li>
-            <li>
-              <a href="profile">Profile</a>
-            </li>
-            <li>
-              <a href="reports">Reports</a>
-            </li>
-          </ul>
+    <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex  lg:h-full lg:left-0 lg:translate-x-0 lg:z-0 lg:bottom-0">
+      <div className="rounded-full lg:rounded-none lg:h-full bg-gray-300 p-2 lg:p-10 h-12 content-center lg:content-start">
+        <div className="flex text-black gap-10 px-5 lg:px-0">
+          <a className="lg:cursor-pointer" onClick={() => window.location.href="/dashboard"}>
+            <LayoutDashboard />
+          </a>
+          <a className="lg:cursor-pointer" onClick={() => window.location.href="/transactions"}>
+            <Wallet />
+          </a>
+          <a className="lg:cursor-pointer" onClick={() => window.location.href="/budget"}>
+            <DollarSign />
+          </a>
         </div>
       </div>
-      <div className="navbar-center">
-        <p className="text-xl font-bold text-black hover:bg-transparent border-transparent font-lifesavers tracking-wide">Budget Application</p>
-      </div>
-      <div className="navbar-end">
-        <button className="btn btn-ghost btn-circle text-black hover:bg-gray-200 border-transparent">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            {" "}
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />{" "}
-          </svg>
-        </button>
-        <button className="btn btn-ghost btn-circle hover:bg-gray-200 border-transparent">
-          <div className="indicator text-black">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />{" "}
-            </svg>
-            {items.length > 0 ? 
-            <span className="badge badge-xs badge-primary indicator-item"></span> : null}
-          </div>
-        </button>
-      </div>
-    </div>
+    </nav>
   );
 }
