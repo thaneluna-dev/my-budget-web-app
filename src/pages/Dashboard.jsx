@@ -2,6 +2,9 @@ import React from "react";
 import "cally";
 import SpendingChart from "./SpendingChart";
 import { Bell, PlusIcon, UserCircleIcon } from "lucide-react";
+import { useSwipeable } from "react-swipeable";
+import { useNavigate } from "react-router-dom";
+import { usePageSwipe } from "../components/PageSwipe";
 
 export default function Dashboard({ isSignedIn, isMobile }) {
   const tableHeaders = ["Date Spent", "Amount", "Name", "Description"];
@@ -9,8 +12,17 @@ export default function Dashboard({ isSignedIn, isMobile }) {
     month: "long",
     year: "numeric",
   });
+
+  const navigate = useNavigate();
+
+  const handlers = usePageSwipe({
+    rightRoute: "/transactions"
+  });
   return isSignedIn && isMobile ? (
-    <div className="min-h-screen sm:px-6 md:px-8 lg:px-10">
+    <div
+      {...handlers}
+      className="min-h-screen sm:px-6 md:px-8 lg:px-10"
+    >
       <div className="mx-auto w-full max-w-7xl text-black flex flex-col gap-3">
         <div className="flex w-full justify-between items-center p-6">
           <UserCircleIcon size={30} color="pink" />
