@@ -4,6 +4,7 @@ import {
   DollarSignIcon,
   House,
   LayoutDashboard,
+  NotepadText,
   Settings,
   Wallet,
 } from "lucide-react";
@@ -19,77 +20,64 @@ export default function Navbar({ isMobile }) {
   // Most likely will be a fetch to the table that has all acitivties that have happened since last refresh
   const navigate = useNavigate();
   const navItems = [
-    { label: "Settings", icon: <Settings color="pink" />, key: "/settings" },
-  ];
-
-  const navItems2 = [
     {
-      label: "Home",
-      icon: <House size={24} color="pink" />,
-      key: "/dashboard",
-    },
-    {
-      label: "Budget",
-      icon: <Wallet size={24} color="pink" />,
-      key: "/budget",
+      label: "Dashboard",
+      icon: LayoutDashboard,
+      path: "/dashboard",
     },
     {
       label: "Transactions",
-      icon: <DollarSign color="pink" />,
-      key: "/transactions",
+      icon: Wallet,
+      path: "/transactions",
+    },
+    {
+      label: "Budget",
+      icon: DollarSign,
+      path: "/budget",
+    },
+    {
+      label: "Goals",
+      icon: NotepadText,
+      path: "/goals",
     },
   ];
-
   const handleRoute = (route) => {
     navigate(route);
   };
+
+  const setClass = () => {};
+
   return (
     <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex  lg:h-full lg:left-0 lg:translate-x-0 lg:z-0 lg:bottom-0">
-      <div className="rounded-full lg:rounded-none lg:h-full bg-gray-700 p-2 lg:p-10 h-12 content-center lg:content-start">
-        <div className="flex text-white gap-10 lg:px-0 lg:flex-col lg:gap-7 lg:w-full">
+      <div className="rounded-2xl lg:rounded-none lg:h-full bg-gray-700 p-2 lg:p-10 h-13 content-center lg:content-start">
+        <div className="flex text-white lg:px-0 lg:flex-col lg:gap-7 lg:w-full">
           <div className="hidden lg:inline-flex font-bold gap-5 place-items-center">
             <img
               src={budgetIcon}
               alt="Our Budget App"
               className="lg:w-10 lg:h-10 lg:cursor-pointer"
             />
-            <h1 id="title">Our Budget App</h1>
+            <h1>Our Budget App</h1>
           </div>
-          {isMobile ? (
-            <a
-              className="lg:cursor-pointer"
-              onClick={() => (window.location.href = "/dashboard")}
-            >
-              <LayoutDashboard size={24} />
-            </a>
-          ) : (
-            <button className="text-left hover:bg-gray-200  cursor-pointer p-2 rounded-[10px]" onClick={() => handleRoute("/dashboard")}>
-              Dashboard
-            </button>
-          )}
-          {isMobile ? (
-            <a
-              className="lg:cursor-pointer"
-              onClick={() => (window.location.href = "/transactions")}
-            >
-              <Wallet size={24} />
-            </a>
-          ) : (
-            <button className="text-left hover:bg-gray-200  cursor-pointer p-2 rounded-[10px]" onClick={() => handleRoute("/transactions") }>
-              Transactions
-            </button>
-          )}
-          {isMobile ? (
-            <a
-              className="lg:cursor-pointer"
-              onClick={() => (window.location.href = "/budget")}
-            >
-              <DollarSign size={24} />
-            </a>
-          ) : (
-            <button className="text-left hover:bg-gray-200 cursor-pointer p-2 rounded-[10px]" onClick={() => handleRoute("/budget")}>
-              Budget
-            </button>
+
+          {navItems.map(({ label, icon: Icon, path }) =>
+            isMobile ? (
+              <a
+                key={path}
+                onClick={() => handleRoute(path)}
+                className={`w-12 h-9 content-center justify-items-center rounded-full ${location.pathname === path ? "bg-blue-500" : "bg-transparent"}`}
+              >
+                <Icon size={24} />
+              </a>
+            ) : (
+              <button
+                key={path}
+                onClick={() => handleRoute(path)}
+                className="text-left hover:bg-gray-200 cursor-pointer p-2 rounded-[10px]"
+              >
+                {label}
+              </button>
+            ),
           )}
         </div>
       </div>

@@ -14,17 +14,12 @@ export default function Dashboard({ isSignedIn, isMobile }) {
   });
 
   const navigate = useNavigate();
-  const handleBudget = () => {
-    
-  };
+  const handleBudget = () => {};
   const handlers = usePageSwipe({
-    rightRoute: "/transactions"
+    rightRoute: "/transactions",
   });
   return isSignedIn && isMobile ? (
-    <div
-      {...handlers}
-      className="min-h-screen sm:px-6 md:px-8 lg:px-10"
-    >
+    <div {...handlers} className="min-h-screen px-6 md:px-8 lg:px-10 pb-5">
       <div className="mx-auto w-full max-w-7xl text-black flex flex-col gap-3">
         <div className="flex w-full justify-between items-center p-6">
           <UserCircleIcon size={30} color="pink" />
@@ -47,6 +42,18 @@ export default function Dashboard({ isSignedIn, isMobile }) {
             </div>
           </div>
           <SpendingDayChart />
+          <div className="flex justify-between items-center">
+            <h2 className="text-[16px] font-bold">Categories</h2>
+
+            <button className="btn btn-primary flex items-center gap-2">
+              <PlusIcon className="text-white" />
+              <h2>Category</h2>
+            </button>
+          </div>
+          <div className="grid grid-cols-2 scroll-auto gap-3">
+            <div className="bg-gray-300 rounded-[10px] p-4">Groceries</div>
+            <div className="bg-gray-300 rounded-[10px] p-4">Entertainment</div>
+          </div>
         </div>
         {/* Show any budgets created, if not show a budget button */}
       </div>
