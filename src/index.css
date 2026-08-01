@@ -1,7 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Life+Savers:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Honk:MORF@23&family=Life+Savers:wght@400;700;800&family=Rubik+Doodle+Shadow&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
 
 @theme {
   --font-lifesavers: "Life Savers", sans-serif;
+  --font-honk: "Honk", sans-serif;
+}
+
+#title {
+  font-family: "Rubik Doodle Shadow", cursive;
+  color: pink;
+  font-size: x-large;
 }
