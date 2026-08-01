@@ -1,10 +1,10 @@
 import React from "react";
 import "cally";
-import SpendingChart from "./SpendingChart";
 import { Bell, PlusIcon, UserCircleIcon } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
 import { useNavigate } from "react-router-dom";
 import { usePageSwipe } from "../components/PageSwipe";
+import SpendingDayChart from "../components/SpendingMonthChart";
 
 export default function Dashboard({ isSignedIn, isMobile }) {
   const tableHeaders = ["Date Spent", "Amount", "Name", "Description"];
@@ -14,7 +14,9 @@ export default function Dashboard({ isSignedIn, isMobile }) {
   });
 
   const navigate = useNavigate();
-
+  const handleBudget = () => {
+    
+  };
   const handlers = usePageSwipe({
     rightRoute: "/transactions"
   });
@@ -29,23 +31,22 @@ export default function Dashboard({ isSignedIn, isMobile }) {
           <Bell size={30} color="pink" />
         </div>
         <div className="flex px-6 flex-col gap-2">
-          <h1 className="text-white text-2xl">$200</h1>
-          <h1 className="text-[medium]  text-white">Budget Balance</h1>
           <div className="flex gap-4 mt-7 justify-evenly">
             <div className="bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center">
               <PlusIcon />
-              <h2 className="text-[16px]">Budget</h2>
+              <h2 className="buttonHeaders text-[16px]">Budget</h2>
             </div>
 
             <div className="bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center">
               <PlusIcon />
-              <h2 className=" text-[16px]">Goal</h2>
+              <h2 className="buttonHeaders text-[16px]">Goal</h2>
             </div>
             <div className="bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center">
               <PlusIcon />
-              <h2 className=" text-[16px]">Transaction</h2>
+              <h2 className="buttonHeaders text-[16px]">Transaction</h2>
             </div>
           </div>
+          <SpendingDayChart />
         </div>
         {/* Show any budgets created, if not show a budget button */}
       </div>

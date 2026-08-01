@@ -1,10 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Honk:MORF@23&family=Life+Savers:wght@400;700;800&family=Rubik+Doodle+Shadow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Honk:MORF@23&family=Life+Savers:wght@400;700;800&family=Rubik+Doodle+Shadow&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
 
 @theme {
   --font-lifesavers: "Life Savers", sans-serif;
   --font-honk: "Honk", sans-serif;
+  --color-chart-1: #FF6384;
+  --color-chart-2: #36A2EB;
+  --color-surface-base: #1F2937;
+  --color-text-3: #9CA3AF;
+  --color-border-2: #4B5563;
+  --color-surface-raised: #374151;
+  --color-text-2: #D1D5DB;
+  --color-text-1: #F3F4F6;
+  --radial-color-chart-1: #febcfc;
+  --font-source-serif: "Source Serif 4", serif;
+}
+
+h2:not(.buttonHeaders), body {
+  font-family: "Source Serif 4", serif;
+  color: white;
 }
 
 #title {
