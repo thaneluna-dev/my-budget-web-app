@@ -66,7 +66,7 @@ export default function Navbar({ isMobile }) {
           {isMobile ? (
             <a
               className="lg:cursor-pointer"
-              onClick={() => (window.location.href = "/dashboard")}
+              onClick={() => (window.location.href = "/transactions")}
             >
               <Wallet size={24} />
             </a>
@@ -78,7 +78,7 @@ export default function Navbar({ isMobile }) {
           {isMobile ? (
             <a
               className="lg:cursor-pointer"
-              onClick={() => (window.location.href = "/dashboard")}
+              onClick={() => (window.location.href = "/budget")}
             >
               <DollarSign size={24} />
             </a>
