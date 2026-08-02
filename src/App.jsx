@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import Budget from "./pages/Budget";
+import Goals from "./pages/Goals";
 
 function App() {
   const [isSignedIn, signedIn] = useState(false);
@@ -28,6 +29,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard isSignedIn={true} isMobile={isMobile} />} />
         <Route path="/transactions" element={<Transactions isSignedIn={true} isMobile={isMobile} />} />
         <Route path="/budget" element={<Budget isSignedIn={true} isMobile={isMobile} />} />
+        <Route path="/goals" element={<Goals isSignedIn={true} isMobile={isMobile} />} />
       </Routes>
     </BrowserRouter>
   );

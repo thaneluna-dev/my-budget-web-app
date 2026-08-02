@@ -57,7 +57,7 @@ export default function Navbar({ isMobile }) {
               alt="Our Budget App"
               className="lg:w-10 lg:h-10 lg:cursor-pointer"
             />
-            <h1>Our Budget App</h1>
+            <h1>Budgeter</h1>
           </div>
 
           {navItems.map(({ label, icon: Icon, path }) =>

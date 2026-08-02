@@ -4,7 +4,8 @@ import { usePageSwipe } from '../components/PageSwipe';
 
 export default function Budget({isSignedIn, isMobile}) {
     const handlers = usePageSwipe({
-        leftRoute: "/transactions"
+        leftRoute: "/transactions",
+        rightRoute: "/goals"
       });
   return isSignedIn && isMobile ? (
       <div {...handlers} className="min-h-screen sm:px-6 md:px-8 lg:px-10">
