@@ -38,14 +38,14 @@ export default function Dashboard({ isSignedIn, isMobile }) {
               <PlusIcon />
               <h2 className="buttonHeaders text-[16px]">Budget</h2>
             </button>
-            <div className="bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center">
+            <button className="bttn bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center" onClick={openBudget}>
               <PlusIcon />
               <h2 className="buttonHeaders text-[16px]">Goal</h2>
-            </div>
-            <div className="bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center">
+            </button>
+            <button className="bttn bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center" onClick={openBudget}>
               <PlusIcon />
               <h2 className="buttonHeaders text-[16px]">Transaction</h2>
-            </div>
+            </button>
           </div>
           <SpendingDayChart />
           <div className="flex justify-between items-center">
@@ -57,7 +57,7 @@ export default function Dashboard({ isSignedIn, isMobile }) {
             </button>
           </div>
           <CategorySection />
-          {budget && <AddBudget onClose={closeBudget} />}
+          {budget && <AddBudget onClose={closeBudget} /> }
         </div>
         {/* Show any budgets created, if not show a budget button */}
       </div>

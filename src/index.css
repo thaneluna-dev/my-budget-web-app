@@ -51,3 +51,7 @@ body, :root  {
 .animate-slide-up {
   animation: slide-up 0.25s ease-out;
 }
+
+.labels {
+  font-family: "Source Serif 4", sans-serif;
+}
