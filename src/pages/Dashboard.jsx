@@ -17,13 +17,18 @@ export default function Dashboard({ isSignedIn, isMobile }) {
   });
 
   const [budget, setBudget] = useState(false);
+  const [clickedName, setClickedName] = useState();
+
   const navigate = useNavigate();
   
   const handlers = usePageSwipe({
     rightRoute: "/transactions",
   });
 
-  const openBudget = () => setBudget(true);
+  const openBudget = (currentName) => {
+    setBudget(true);
+    setClickedName(currentName.target.textContent);
+  };
   const closeBudget = () => setBudget(false);
   return isSignedIn && isMobile ? (
     <div {...handlers} className="min-h-screen md:px-8 lg:px-10 pb-20">
@@ -38,7 +43,7 @@ export default function Dashboard({ isSignedIn, isMobile }) {
               <PlusIcon />
               <h2 className="buttonHeaders text-[16px]">Budget</h2>
             </button>
-            <button className="bttn bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center" onClick={openBudget}>
+            <button className="bttn bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center" onClick={(e) => openBudget(e)}>
               <PlusIcon />
               <h2 className="buttonHeaders text-[16px]">Goal</h2>
             </button>
@@ -57,7 +62,7 @@ export default function Dashboard({ isSignedIn, isMobile }) {
             </button>
           </div>
           <CategorySection />
-          {budget && <AddBudget onClose={closeBudget} /> }
+          {budget && <AddBudget onClose={closeBudget} isName={clickedName} /> }
         </div>
         {/* Show any budgets created, if not show a budget button */}
       </div>

@@ -54,4 +54,8 @@ body, :root  {
 
 .labels {
   font-family: "Source Serif 4", sans-serif;
+  font-weight: bolder;
+  font-size: 22px;
+  padding-top: 16px;
+  padding-bottom: 20px;
 }
