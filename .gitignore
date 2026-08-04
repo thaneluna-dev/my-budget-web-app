@@ -22,8 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/SQL/
 
 # Environment variables
 .env
-# Environment variables
-/SQL/

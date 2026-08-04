@@ -17,58 +17,89 @@ if (-not (Test-Path ".git")) {
     exit 1
 }
 
-Write-Host "Checking if github repository is set..."
-if (-not (git remote get-url origin)) {
-    Write-Error "No remote repository is set. Please set a remote repository before pushing."
-    Write-Host "Setting the remote repository to 'origin'..."
+# Verify remote exists
+Write-Host "Checking Git remote..."
+
+$remote = git remote get-url origin 2>$null
+
+if (-not $remote) {
+    Write-Host "No remote found. Creating GitHub repository..."
+
+    if (-not $GITHUB_REPOSITORY) {
+        Write-Error "GITHUB_REPOSITORY was not provided."
+        exit 1
+    }
+
     gh repo create $GITHUB_REPOSITORY --public --source=. --remote=origin --push
-    exit 1
+    exit 0
 }
 
-Write-Host "Checking repository status..."
-git status
 
+# Ensure .gitignore exists
 $gitignorePath = ".gitignore"
 
 if (-not (Test-Path $gitignorePath)) {
-    New-Item -ItemType File -Path $gitignorePath -Force | Out-Null
+    Write-Error ".gitignore does not exist."
+    exit 1
 }
 
-$gitignoreContent = Get-Content $gitignorePath -ErrorAction SilentlyContinue
 
-if ($gitignoreContent -notcontains ".env") {
-    Add-Content -Path $gitignorePath -Value "`n# Environment variables`n.env"
-    Write-Host "Added .env to .gitignore."
-}
-else {
-    Write-Host ".env is already ignored."
+Write-Host "`nReading .gitignore..."
+
+$ignoreRules = Get-Content $gitignorePath |
+    Where-Object {
+        $_ -and
+        $_ -notmatch "^#" -and
+        $_ -notmatch "^\s*$"
+    }
+
+
+Write-Host "`nRemoving ignored items from Git tracking..."
+
+foreach ($rule in $ignoreRules) {
+
+    # Remove leading slash for filesystem path
+    $path = $rule.TrimStart("/")
+
+    # Skip wildcard-only rules
+    if ($path -notmatch "[\*\?]") {
+
+        if (Test-Path $path) {
+
+            Write-Host "Untracking: $path"
+
+            if ((Get-Item $path).PSIsContainer) {
+                git rm -r --cached --ignore-unmatch $path
+            }
+            else {
+                git rm --cached --ignore-unmatch $path
+            }
+        }
+    }
 }
 
-if ($gitignoreContent -notcontains "/SQL/") {
-    Add-Content -Path $gitignorePath -Value "`n# Environment variables`n/SQL/"
-    Write-Host "Added /SQL/ to .gitignore."
-}
-else {
-    Write-Host "SQL is already ignored."
-}
 
-# If .env was previously tracked, stop tracking it while keeping the local file
-git rm --cached .env 2>$null
-git rm --cached SQL 2>$null
-
-# Stage all changes
 Write-Host "`nAdding changes..."
+
 git add .
 
-# Check if there is anything to commit
+
+# Show ignored files for debugging
+Write-Host "`nIgnored files:"
+git status --ignored
+
+
+# Check for changes
 git diff --cached --quiet
+
 if ($LASTEXITCODE -eq 0) {
     Write-Host "No changes to commit."
     exit 0
 }
 
-# Commit
-Write-Host "`nCommitting changes..."
+
+Write-Host "`nCommitting..."
+
 git commit -m $CommitMessage
 
 if ($LASTEXITCODE -ne 0) {
@@ -76,10 +107,11 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# Determine current branch
+
 $branch = git rev-parse --abbrev-ref HEAD
 
 Write-Host "`nPushing to origin/$branch..."
+
 git push origin $branch
 
 if ($LASTEXITCODE -eq 0) {
