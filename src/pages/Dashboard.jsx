@@ -20,14 +20,14 @@ export default function Dashboard({ isSignedIn, isMobile }) {
   const [clickedName, setClickedName] = useState();
 
   const navigate = useNavigate();
-  
+
   const handlers = usePageSwipe({
     rightRoute: "/transactions",
   });
 
   const openBudget = (currentName) => {
     setBudget(true);
-    setClickedName(currentName.target.textContent);
+    setClickedName(currentName.currentTarget.textContent);
   };
   const closeBudget = () => setBudget(false);
   return isSignedIn && isMobile ? (
@@ -43,12 +43,18 @@ export default function Dashboard({ isSignedIn, isMobile }) {
               <PlusIcon />
               <h2 className="buttonHeaders text-[16px]">Budget</h2>
             </button>
-            <button className="bttn bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center" onClick={(e) => openBudget(e)}>
+            <button
+              className="bttn bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center"
+              onClick={(e) => openBudget(e)}
+            >
               <PlusIcon />
               <h2 className="buttonHeaders text-[16px]">Goal</h2>
             </button>
-            <button className="bttn bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center" onClick={openBudget}>
-              <PlusIcon />
+            <button
+              className="bttn bg-pink-200 w-26 rounded-[10px] text-center p-4 justify-items-center"
+              onClick={(e) => openBudget(e)}
+            >
+              <PlusIcon onClick={(e) => openBudget(e)} />
               <h2 className="buttonHeaders text-[16px]">Transaction</h2>
             </button>
           </div>
@@ -62,7 +68,7 @@ export default function Dashboard({ isSignedIn, isMobile }) {
             </button>
           </div>
           <CategorySection />
-          {budget && <AddBudget onClose={closeBudget} isName={clickedName} /> }
+          {budget && <AddBudget onClose={closeBudget} isName={clickedName} />}
         </div>
         {/* Show any budgets created, if not show a budget button */}
       </div>

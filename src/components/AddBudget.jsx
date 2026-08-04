@@ -44,7 +44,7 @@ const AddBudget = ({ onClose, isName }) => {
         </div>
 
         {isName === "Budget" ? (
-          <div className="grid grid-cols-2 grid-rows-2">
+          <div className="grid grid-cols-2 grid-rows">
             <div className="col-span-2">
               <h3 className="labels justify-self-center">Add a budget</h3>
               <div className="grid grid-rows-2 h-fit max-w-sm place-items-baseline">
@@ -57,6 +57,7 @@ const AddBudget = ({ onClose, isName }) => {
                       setBudgetType(e.target.value);
                       console.log("Selected:", e.target.value);
                     }}
+                    className="border border-black rounded-[5px]"
                   >
                     {dropdownValues.map((val) => (
                       <option key={val.freq} value={val.freq}>
