@@ -37,16 +37,24 @@ if (-not (Test-Path $gitignorePath)) {
 $gitignoreContent = Get-Content $gitignorePath -ErrorAction SilentlyContinue
 
 if ($gitignoreContent -notcontains ".env") {
-    Add-Content -Path $gitignorePath -Value "`n# Environment variables`n.env`n/SQL/"
+    Add-Content -Path $gitignorePath -Value "`n# Environment variables`n.env"
     Write-Host "Added .env to .gitignore."
 }
 else {
     Write-Host ".env is already ignored."
 }
 
+if ($gitignoreContent -notcontains "/SQL/") {
+    Add-Content -Path $gitignorePath -Value "`n# Environment variables`n/SQL/"
+    Write-Host "Added /SQL/ to .gitignore."
+}
+else {
+    Write-Host "SQL is already ignored."
+}
+
 # If .env was previously tracked, stop tracking it while keeping the local file
 git rm --cached .env 2>$null
-git rm --cached /SQL/ 2>$null
+git rm --cached SQL 2>$null
 
 # Stage all changes
 Write-Host "`nAdding changes..."
