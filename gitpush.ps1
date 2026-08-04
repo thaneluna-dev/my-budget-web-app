@@ -37,7 +37,7 @@ if (-not (Test-Path $gitignorePath)) {
 $gitignoreContent = Get-Content $gitignorePath -ErrorAction SilentlyContinue
 
 if ($gitignoreContent -notcontains ".env") {
-    Add-Content -Path $gitignorePath -Value "`n# Environment variables`n.env"
+    Add-Content -Path $gitignorePath -Value "`n# Environment variables`n.env`n/SQL/"
     Write-Host "Added .env to .gitignore."
 }
 else {
@@ -46,6 +46,7 @@ else {
 
 # If .env was previously tracked, stop tracking it while keeping the local file
 git rm --cached .env 2>$null
+git rm --cached /SQL/ 2>$null
 
 # Stage all changes
 Write-Host "`nAdding changes..."
